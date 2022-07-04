@@ -9,7 +9,7 @@ const REVIEWS_STORES = {
 
 var published_reviews;
 try {
-    published_reviews = JSON.parse(fs.readFileSync('./published_reviews.json'));
+    published_reviews = JSON.parse(fs.readFileSync('./config/published_reviews.json'));
 } catch (err) {
     published_reviews = {}
 }
@@ -51,7 +51,7 @@ exports.markReviewAsPublished = function (config, review) {
         console.log("INFO: Review marked as published: " + JSON.stringify(published_reviews[config.appId]));
     }
 
-    fs.writeFileSync('./published_reviews.json', JSON.stringify(published_reviews), { flag: 'w' })
+    fs.writeFileSync('./config/published_reviews.json', JSON.stringify(published_reviews), { flag: 'w' })
 };
 
 exports.reviewPublished = function (config, review) {
