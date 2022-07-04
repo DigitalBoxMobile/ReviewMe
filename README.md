@@ -7,7 +7,9 @@ This project was originally forked from [reviewMe](https://github.com/TradeMe/Re
 
 ## Usage
 
-`docker-compose up -d`
+Place the `config.json` and optional `google-key.json` files in the `~/ReviewMe/config` folder
+
+Run `docker-compose up -d` in app folder
 
 ## Config
 
@@ -27,7 +29,7 @@ ReviewMe requires a config file. A simple config looks something like:
   "apps": [
     {
       "appId": "com.myandroidapp",
-      "publisherKey": "~/publisher.json"
+      "publisherKey": "~/google-key.json"
     },
     {
       "appId": "012345678",
