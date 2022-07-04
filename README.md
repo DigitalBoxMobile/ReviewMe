@@ -7,7 +7,7 @@ This project was originally forked from [reviewMe](https://github.com/TradeMe/Re
 
 ## Usage
 
-Place the `config.json` and optional `google-key.json` files in the `~/ReviewMe/config` folder
+Place the `config.json` and optional `google-key-<account>.json` files in the `~/ReviewMe/config` folder
 
 Run `docker-compose up -d` in app folder
 
