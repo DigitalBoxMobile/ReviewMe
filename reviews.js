@@ -68,7 +68,7 @@ exports.resetPublishedReviews = function () {
 };
 
 exports.postToEmail = function (message, config) {
-    config.transporter.sendMail({
+    config.emailTransporter.sendMail({
         from: config.emailFrom, // sender address
         to: config.emailTo, // list of receivers
         subject: message.subject, // Subject line
