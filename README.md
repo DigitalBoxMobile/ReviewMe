@@ -1,21 +1,13 @@
 # ReviewMe
 
-![NPM Version](https://img.shields.io/npm/v/@trademe/reviewme.svg) ![Downloads](https://img.shields.io/npm/dt/@trademe/reviewme.svg)  
+ReviewMe is a nodejs app that monitors App Store and Google Play reviews, and posts them to email.
 
-ReviewMe is a nodejs app that monitors App Store and Google Play reviews, and posts them to Slack.
+This project was originally forked from [reviewMe](https://github.com/TradeMe/ReviewMe)
 
-![ReviewMe Preview](images/reviewme-preview.png)
-
-This project was originally forked from [reviews-to-slack](https://www.npmjs.com/package/reviews-to-slack)
-
-
-## Installation
-
-`npm install -g @trademe/reviewme`
 
 ## Usage
 
-`reviewme ~/myappsconfig.json`
+`docker-compose up -d`
 
 ## Config
 
@@ -23,10 +15,15 @@ ReviewMe requires a config file. A simple config looks something like:
 
 ```json
 {
-  "slackHook": "https://hooks.slack.com/services/01234/5678",
+  "emailSmtpHost": "mail.com",
+  "emailSmtpPort": "25",
+  "emailSmtpUser": "username",
+  "emailSmtpPassword": "password",
+  "emailFrom": "from@email.com",
+  "emailTo": "to@email.com",
   "verbose": true,
   "dryRun": false,
-  "interval":300,
+  "interval": 300,
   "apps": [
     {
       "appId": "com.myandroidapp",
@@ -43,12 +40,16 @@ ReviewMe requires a config file. A simple config looks something like:
 }
 ```
 ### Options
-* **slackHook**: The slack hook for your Slack integration. Reviews will be posted here.
+* **emailSmtpHost**: SMTP host,
+* **emailSmtpPort**: SMTP port,
+* **emailSmtpUser**: SMTP username,
+* **emailSmtpPassword**: SMTP user password,
+* **emailFrom**: From address,
+* **emailTo**: To address,
 * **verbose**: When enabled, log messages will be printed to the console
 * **dryRun**: When enabled, ReviewMe will post the latest app review for each app on startup. Useful for debugging
 * **botIcon** An image url to use for the bot avatar
 * **showAppIcon** Determines if app icon will be displayed (overrides botIcon)
-* **channel** Overrides the default Slack channel messages will be posted to
 * **interval** The interval (in seconds) to check for new reviews. Default: `300`.
 * **apps** A list of apps to fetch reviews for. See App Options below
 * **publisherKey** *Android Only* The path to a Google Play Publisher private key (`.json` file). Used for accessing the Google Play Publisher API.

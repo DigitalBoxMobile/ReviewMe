@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  reviewme:
+    build:
+      context: ./
+    image: reviewme/app
+    container_name: reviewme_app
+    tty: true
+    env_file:
+      - ./.env
+    volumes:
+      - ~/ReviewMe/config:/config
+    networks:
+      - reviewme-network
+
+networks:
+  reviewme-network:
+    external: false

@@ -1,8 +1,9 @@
 FROM node:10-alpine
 
-ARG ReviewMeVersion=2
+WORKDIR /reviewme
 
-# Workaroudn when building on an AWS EC2 c5/m5/t3 instance
-# RUN npm config set unsafe-perm true
+COPY . .
 
-RUN npm install -g @trademe/reviewme@${ReviewMeVersion}
+RUN npm install
+
+CMD ["npm", "run", "start", "/config/config.json"]

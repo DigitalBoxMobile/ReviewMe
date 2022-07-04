@@ -55,8 +55,8 @@ exports.startReview = function (config, first_run) {
 function publishReview(appInformation, config, review, force) {
     if (!controller.reviewPublished(config, review) || force) {
         if (config.verbose) console.log("INFO: Received new review: " + JSON.stringify(review));
-        var message = slackMessage(review, config, appInformation);
-        controller.postToSlack(message, config);
+        var message = mailMessage(review, config, appInformation);
+        controller.postToEmail(message, config);
         controller.markReviewAsPublished(config, review);
     } else {
         if (config.verbose) console.log("INFO: Review already published: " + review.text);
@@ -146,15 +146,13 @@ exports.fetchGooglePlayReviews = function (config, appInformation, callback) {
     });
 };
 
-var slackMessage = function (review, config, appInformation) {
+var mailMessage = function (review, config, appInformation) {
     if (config.verbose) console.log("INFO: Creating message for review " + review.title);
 
     var stars = "";
     for (var i = 0; i < 5; i++) {
         stars += i < review.rating ? "★" : "☆";
     }
-
-    var color = review.rating >= 4 ? "good" : (review.rating >= 2 ? "warning" : "danger");
 
     var text = "";
     text += review.text + "\n";
@@ -173,33 +171,19 @@ var slackMessage = function (review, config, appInformation) {
     }
 
     if (review.link) {
-        footer += " - " + "<" + review.link + "|" + appInformation.appName + ", " + review.storeName + ">";
+        footer += " - " + review.link + " | " + appInformation.appName + ", " + review.storeName;
     } else {
         footer += " - " + appInformation.appName + ", " + review.storeName;
     }
 
-    var title = stars;
+    var title = appInformation.appName + ", " + review.storeName + " - " + stars;
     if (review.title) {
-        title = title + " – " + review.title;
+        title += " – " + review.title;
     }
 
     return {
-        "channel": config.channel,
-        "attachments": [
-            {
-                "mrkdwn_in": ["text", "pretext", "title", "footer"],
-
-                "color": color,
-                "author_name": review.author,
-
-                "thumb_url": config.showAppIcon ? appInformation.appIcon : config.botIcon,
-
-                "title": title,
-
-                "text": text,
-                "footer": footer
-            }
-        ]
+        subject: title,
+        body: `${text}<br><br>${footer}`
     };
 };
 

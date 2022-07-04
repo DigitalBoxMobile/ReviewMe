@@ -1,7 +1,7 @@
 {
   "name": "@trademe/reviewme",
   "version": "3.0.2",
-  "description": "Google Play and App Store reviews posted to Slack",
+  "description": "Google Play and App Store reviews posted to email",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TradeMe/ReviewMe.git"
+    "url": "git+https://github.com/DigitalBoxMobile/ReviewMe.git"
   },
   "keywords": [
     "android",
@@ -21,7 +21,6 @@
     "play",
     "app",
     "store",
-    "slack",
     "app",
     "reviews",
     "reviews"
@@ -35,8 +34,10 @@
   "dependencies": {
     "android-versions": "^1.4.0",
     "commander": "^4.1.1",
-    "google-play-scraper": "^8.1.0",
-    "googleapis": "^52.1.0",
-    "request": "^2.88.0"
+    "google-play-scraper": "^9.0.1",
+    "googleapis": "^104.0.0",
+    "request": "^2.88.0",
+    "nodemailer": "^6.6.1",
+    "dotenv": "^6.1.0"
   }
 }

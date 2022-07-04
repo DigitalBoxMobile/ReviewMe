@@ -1,4 +1,3 @@
-const request = require('request');
 const appstore = require('./appstorereviews.js');
 const googlePlay = require('./googleplayreviews.js');
 const fs = require('fs');
@@ -68,18 +67,11 @@ exports.resetPublishedReviews = function () {
     return published_reviews = {};
 };
 
-exports.postToSlack = function (message, config) {
-    var messageJSON = JSON.stringify(message);
-    if (config.verbose) {
-        console.log("INFO: Posting new message to Slack: ");
-        console.log("INFO: Hook: " + config.slackHook);
-        console.log("INFO: Message: " + messageJSON);
-    }
-    return request.post({
-        url: config.slackHook,
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: messageJSON
+exports.postToEmail = function (message, config) {
+    transporter.sendMail({
+        from: config.emailFrom, // sender address
+        to: config.emailTo, // list of receivers
+        subject: message.subject, // Subject line
+        html: message.body, // html body
     });
 };
